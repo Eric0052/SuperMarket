@@ -1,13 +1,15 @@
 package main
 
 var (
-	_       Product = (*RealProduct)(nil)
+	_ Product = (*RealProduct)(nil)
 )
 
 type Product interface {
 	GetId() string
 	GetName() string
 	GetPrice() float32
+	GetStock() int
+	ChangeStock(add int)
 }
 
 //实物商品类
@@ -16,6 +18,7 @@ type RealProduct struct {
 	Name   string  `json:"name"`
 	Price  float32 `json:"price"`
 	Weight float32 `json:"weight"`
+	Stock  int     `json:"stock"`
 }
 
 func (realPro *RealProduct) GetId() string {
@@ -34,11 +37,20 @@ func (realPro *RealProduct) GetWeight() float32 {
 	return realPro.Weight
 }
 
+func (realPro *RealProduct) GetStock() int {
+	return realPro.Stock
+}
+
+func (realPro *RealProduct) ChangeStock(add int) {
+	realPro.Stock = realPro.Stock + add
+}
+
 type VirtualProduct struct {
 	Id      string  `json:"id"`
 	Name    string  `json:"name"`
 	Price   float32 `json:"price"`
 	Content string  `json:"content"`
+	Stock   int     `json:"Stock"`
 }
 
 func (virPro *VirtualProduct) GetId() string {
@@ -55,4 +67,12 @@ func (virPro *VirtualProduct) GetPrice() float32 {
 
 func (virPro *VirtualProduct) GetContent() string {
 	return virPro.Content
+}
+
+func (virPro *VirtualProduct) GetStock() int {
+	return virPro.Stock
+}
+
+func (virPro *VirtualProduct) ChangeStock(add int) {
+	virPro.Stock = virPro.Stock + add
 }

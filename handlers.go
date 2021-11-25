@@ -127,6 +127,32 @@ func GetExactProduct(c *gin.Context) {
 
 }
 
+func GetOrder(c *gin.Context) {
+	orderJson, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		c.JSON(http.StatusOK, models.Response{
+			StatusCode: 1,
+			Message:    "fail to finish this order!",
+		})
+		return
+	}
+	orders := []Order{}
+	json.Unmarshal(orderJson, orders)
+	success := Store.DoOrder(orders)
+	if !success {
+		c.JSON(http.StatusOK, models.Response{
+			StatusCode: 1,
+			Message:    "fail to finish this order!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, models.Response{
+		StatusCode: 0,
+		Message:    "order done!",
+	})
+
+}
+
 // func CreatNewProduct(c *gin.Context) {
 // 	jsonBytes,err :=  ioutil.ReadAll(c.Request.Body)
 // 	var product

@@ -85,3 +85,13 @@ func (store *StoreHouse) loadVirtualProducts() {
 	}
 
 }
+func (store *StoreHouse) DoOrder(orders []Order) bool {
+	for _, order := range orders {
+		if _, ok := Store.products[order.Id]; !ok {
+			return false
+		}
+		Store.products[order.Id].ChangeStock(order.Add)
+	}
+	store.needStore = true
+	return true
+}
