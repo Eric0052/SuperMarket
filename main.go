@@ -17,6 +17,7 @@ func main() {
 	r.POST("/product", AddNewProductHandle)
 	r.DELETE("/product", DeleteProductHandle)
 	r.GET("/product/singleProduct", GetExactProduct)
+	r.POST("/product/order", GetOrder)
 	// r.GET("/good/:id", GetGoodHandle)
 	// r.PUT("/good/:id", ModifyGoodHandle)
 	// r.DELETE("good/:id")
